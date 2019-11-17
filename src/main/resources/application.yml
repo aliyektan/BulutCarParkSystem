@@ -1,0 +1,53 @@
+info:
+  component: Bulut Car Park
+
+spring:
+  application:
+    name: bulut-carpark
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3306/bulut_carpark?useSSL=false&storage_engine=InnoDB&useUnicode=yes&characterEncoding=UTF-8
+    username: root
+    password: root
+    driverClassName: com.mysql.jdbc.Driver
+    hikari:
+      connection-timeout: 3000
+      idle-timeout: 60000
+      max-lifetime: 180000
+      maximum-pool-size: 3
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  output:
+    ansi:
+      enabled: always
+  jmx:
+    enabled: false
+  security:
+    oauth2:
+     resource:
+      filter-order: 3
+    basic:
+     enabled: false
+    signing-key: MaYzkSjmkzPC57L
+    encoding-strength: 256
+    security-realm: KMerge Car Park
+    jwt:
+      client-id: bulutcpjwtclientid
+      client-secret: XY7kmzoNzl100
+      grant-type: password
+      scope-read: read
+      scope-write: write
+      resource-ids: bulutcpjwtresourceid
+logging:
+  level:
+    # org.springframework: DEBUG
+    org.springframework.web: DEBUG
+  file: /jar/logs/application.log
