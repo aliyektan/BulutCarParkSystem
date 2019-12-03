@@ -7,6 +7,7 @@ import com.aliyektan.bulut.repository.UserRepository;
 import com.aliyektan.bulut.service.base.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -14,6 +15,9 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService<UserDTO, Integer> {
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -24,6 +28,18 @@ public class UserServiceImpl implements UserService<UserDTO, Integer> {
     @Override
     public UserDTO save(UserDTO dto) {
         User user = userMapper.toEntity(dto);
+        User finalUser = user;
+        User userFromDb = userRepository.findById(user.getId())
+                .orElseThrow(() -> new EntityNotFoundException(finalUser.getId()+ " numaralı kullanıcı bulunamadı !"));
+        user.setPassword(userFromDb.getPassword());
+        user = userRepository.save(user);
+        return userMapper.toDTO(user);
+    }
+
+    @Override
+    public UserDTO create(UserDTO dto) {
+        User user = userMapper.toEntity(dto);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getIdentityNumber()));
         user = userRepository.save(user);
         return userMapper.toDTO(user);
     }
@@ -42,5 +58,6 @@ public class UserServiceImpl implements UserService<UserDTO, Integer> {
     public List<UserDTO> findAll() {
         return userMapper.toDTOList(userRepository.findAll(Sort.by(Sort.Direction.DESC, "updatedAt")));
     }
+
 
 }

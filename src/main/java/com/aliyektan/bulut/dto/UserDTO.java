@@ -15,10 +15,6 @@ public class UserDTO extends BaseDTO {
 
     private String identityNumber;
 
-    private String password;
-
-    private String passwordConfirmation;
-
     private String name;
 
     private String surname;

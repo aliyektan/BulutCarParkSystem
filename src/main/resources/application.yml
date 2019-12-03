@@ -6,7 +6,7 @@ spring:
     name: bulut-carpark
   datasource:
     platform: mysql
-    url: jdbc:mysql://localhost:3306/bulut_carpark?useSSL=false&storage_engine=InnoDB&useUnicode=yes&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/bulut_carpark?useSSL=false&storage_engine=InnoDB&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver
@@ -38,7 +38,7 @@ spring:
      enabled: false
     signing-key: MaYzkSjmkzPC57L
     encoding-strength: 256
-    security-realm: KMerge Car Park
+    security-realm: Bulut Car Park
     jwt:
       client-id: bulutcpjwtclientid
       client-secret: XY7kmzoNzl100

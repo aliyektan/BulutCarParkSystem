@@ -15,8 +15,9 @@
     <description>Sakarya University Master's Degree Project</description>
 
     <properties>
-        <java.version>11</java.version>
-        <jjwt.version>0.10.7</jjwt.version>
+        <java.version>1.8</java.version>
+        <oauth.version>2.3.3.RELEASE</oauth.version>
+        <jwt.version>1.0.9.RELEASE</jwt.version>
     </properties>
 
     <dependencies>
@@ -43,17 +44,19 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>${oauth.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
+            <version>${jwt.version}</version>
         </dependency>
 
         <dependency>
