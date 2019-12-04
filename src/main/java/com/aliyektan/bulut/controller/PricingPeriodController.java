@@ -1,18 +1,18 @@
 package com.aliyektan.bulut.controller;
 
-import com.aliyektan.bulut.dto.PricingTypeDTO;
+import com.aliyektan.bulut.dto.PricingPeriodDTO;
 import com.aliyektan.bulut.dto.Response;
-import com.aliyektan.bulut.service.base.PricingTypeService;
+import com.aliyektan.bulut.service.base.PricingPeriodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/pricing-types")
-public class PricingTypeController {
+public class PricingPeriodController {
 
     @Autowired
-    private PricingTypeService pricingTypeService;
+    private PricingPeriodService pricingPeriodService;
 
     @ResponseBody
     @GetMapping
@@ -20,7 +20,7 @@ public class PricingTypeController {
 
         return Response
                 .builder()
-                .data(pricingTypeService.findAll())
+                .data(pricingPeriodService.findAll())
                 .httpStatus(HttpStatus.OK.value())
                 .build();
 
@@ -32,7 +32,7 @@ public class PricingTypeController {
 
         return Response
                 .builder()
-                .data(pricingTypeService.findById(id))
+                .data(pricingPeriodService.findById(id))
                 .httpStatus(HttpStatus.OK.value())
                 .build();
 
@@ -40,10 +40,10 @@ public class PricingTypeController {
 
     @ResponseBody
     @PostMapping
-    public Response save(@RequestBody PricingTypeDTO dto) {
+    public Response save(@RequestBody PricingPeriodDTO dto) {
         return Response
                 .builder()
-                .data(pricingTypeService.save(dto))
+                .data(pricingPeriodService.save(dto))
                 .httpStatus(HttpStatus.OK.value())
                 .build();
     }
@@ -51,7 +51,7 @@ public class PricingTypeController {
     @ResponseBody
     @DeleteMapping(path = "/{id}")
     public Response delete(@PathVariable("id") Integer id) {
-        pricingTypeService.deleteById(id);
+        pricingPeriodService.deleteById(id);
         return Response
                 .builder()
                 .httpStatus(HttpStatus.OK.value())

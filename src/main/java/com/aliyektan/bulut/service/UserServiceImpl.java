@@ -68,5 +68,4 @@ public class UserServiceImpl implements UserService<UserDTO, Integer> {
         return userMapper.toDTOList(userRepository.findAll(Sort.by(Sort.Direction.DESC, "updatedAt")));
     }
 
-
 }

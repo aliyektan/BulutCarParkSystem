@@ -1,9 +1,9 @@
 package com.aliyektan.bulut.repository;
 
-import com.aliyektan.bulut.entity.PricingType;
+import com.aliyektan.bulut.entity.PricingPeriod;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PricingTypeRepository extends JpaRepository<PricingType, Integer> {
+public interface PricingPeriodRepository extends JpaRepository<PricingPeriod, Integer> {
 }

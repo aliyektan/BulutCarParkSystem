@@ -8,7 +8,7 @@ import org.mapstruct.Named;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {PricingTypeMapper.class})
+@Mapper(componentModel = "spring", uses = {PricingPeriodMapper.class})
 public interface PricingMapper {
 
     @Named("toEntity")

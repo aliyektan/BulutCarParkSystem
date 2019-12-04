@@ -10,6 +10,6 @@ public class PricingDTO extends BaseDTO {
 
     private Double price;
 
-    private PricingTypeDTO pricingType;
+    private PricingPeriodDTO pricingPeriod;
 
 }

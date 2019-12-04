@@ -13,10 +13,10 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "pricing_types", uniqueConstraints = {
-        @UniqueConstraint(name = "uq_pricing_type",columnNames = {"start","end"})
+@Table(name = "pricing_periods", uniqueConstraints = {
+        @UniqueConstraint(name = "uq_pricing_period_start_end", columnNames = {"start", "end"})
 })
-public class PricingType extends BaseEntity {
+public class PricingPeriod extends BaseEntity {
 
     @NotNull
     @NotBlank

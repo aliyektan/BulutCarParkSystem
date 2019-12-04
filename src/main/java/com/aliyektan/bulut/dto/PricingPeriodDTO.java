@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class PricingTypeDTO extends BaseDTO {
+public class PricingPeriodDTO extends BaseDTO {
 
     private Double start;
 

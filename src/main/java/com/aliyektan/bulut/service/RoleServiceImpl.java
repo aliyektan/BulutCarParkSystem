@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
@@ -42,25 +41,6 @@ public class RoleServiceImpl implements RoleService<RoleDTO, Integer> {
     @Override
     public List<RoleDTO> findAll() {
         return roleMapper.toDTOList(roleRepository.findAll(Sort.by(Sort.Direction.DESC, "updatedAt")));
-    }
-
-    @PostConstruct
-    private void initializeRoles(){
-
-        Role roleAdmin = new Role("ADMIN");
-        Role roleUser = new Role("USER");
-        Role roleSuperAdmin = new Role("SUPERADMIN");
-
-        if (roleRepository.findByName("ADMIN") == null)
-            roleRepository.save(roleAdmin);
-
-        if (roleRepository.findByName("USER") == null)
-            roleRepository.save(roleUser);
-
-        if (roleRepository.findByName("SUPERADMIN") == null)
-            roleRepository.save(roleSuperAdmin);
-
-
     }
 
 }
