@@ -28,16 +28,19 @@ public class Startup {
 
         Role superAdmin = roleRepository.findByName("SUPERADMIN");
 
-        User superAdminUser = new User();
-        superAdminUser.setEmail("superadmin@bulutcarpark.com");
-        superAdminUser.setPhoneNumber("1111111111");
-        superAdminUser.setIdentityNumber("11111111111");
-        superAdminUser.setPassword(bCryptPasswordEncoder.encode("123456"));
-        superAdminUser.setName("ADMIN");
-        superAdminUser.setSurname("SUPER");
-        superAdminUser.setRole(superAdmin);
+        if (!userRepository.findByEmail("superadmin@bulutcarpark.com").isPresent()) {
 
-        userRepository.save(superAdminUser);
+            User superAdminUser = new User();
+            superAdminUser.setEmail("superadmin@bulutcarpark.com");
+            superAdminUser.setPhoneNumber("1111111111");
+            superAdminUser.setIdentityNumber("11111111111");
+            superAdminUser.setPassword(bCryptPasswordEncoder.encode("123456"));
+            superAdminUser.setName("ADMIN");
+            superAdminUser.setSurname("SUPER");
+            superAdminUser.setRole(superAdmin);
+
+            userRepository.save(superAdminUser);
+        }
 
     }
 
