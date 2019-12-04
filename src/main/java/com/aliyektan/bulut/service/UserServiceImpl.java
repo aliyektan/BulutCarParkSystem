@@ -5,6 +5,7 @@ import com.aliyektan.bulut.entity.User;
 import com.aliyektan.bulut.mapper.UserMapper;
 import com.aliyektan.bulut.repository.UserRepository;
 import com.aliyektan.bulut.service.base.UserService;
+import com.aliyektan.bulut.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService<UserDTO, Integer> {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private UserUtil userUtil;
+
     @Override
     public UserDTO save(UserDTO dto) {
         User user = userMapper.toEntity(dto);
@@ -42,6 +46,11 @@ public class UserServiceImpl implements UserService<UserDTO, Integer> {
         user.setPassword(bCryptPasswordEncoder.encode(user.getIdentityNumber()));
         user = userRepository.save(user);
         return userMapper.toDTO(user);
+    }
+
+    @Override
+    public UserDTO getAuthenticatedUserInfo() {
+        return userMapper.toDTO(userUtil.getAuthenticatedUser());
     }
 
     @Override

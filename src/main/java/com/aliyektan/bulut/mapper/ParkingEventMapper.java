@@ -8,7 +8,7 @@ import org.mapstruct.Named;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {ParkPointMapper.class})
+@Mapper(componentModel = "spring", uses = {BranchMapper.class, UserMapper.class})
 public interface ParkingEventMapper {
 
     @Named("toEntity")

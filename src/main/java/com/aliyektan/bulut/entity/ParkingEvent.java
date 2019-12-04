@@ -28,7 +28,10 @@ public class ParkingEvent extends BaseEntity {
 
     private Timestamp endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private ParkPoint parkPoint;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Branch currentBranch;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User creator;
 
 }

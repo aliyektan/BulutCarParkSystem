@@ -6,4 +6,6 @@ public interface UserService<T extends BaseDTO, ID> extends BaseService<T,ID> {
 
     T create(T dto);
 
+    T getAuthenticatedUserInfo();
+
 }

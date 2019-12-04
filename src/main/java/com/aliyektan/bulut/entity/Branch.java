@@ -24,8 +24,7 @@ public class Branch extends BaseEntity {
     @Lob
     private String address;
 
-    @OneToMany(mappedBy = "branch", cascade = CascadeType.REMOVE)
-    private List<ParkPoint> parkPoints;
+    private Integer parkPointCount;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Pricing> pricingList;

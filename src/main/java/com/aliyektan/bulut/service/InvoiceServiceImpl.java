@@ -1,10 +1,13 @@
 package com.aliyektan.bulut.service;
 
 import com.aliyektan.bulut.dto.InvoiceDTO;
+import com.aliyektan.bulut.dto.LicenseNumberDTO;
 import com.aliyektan.bulut.entity.Invoice;
+import com.aliyektan.bulut.entity.ParkingEvent;
 import com.aliyektan.bulut.mapper.InvoiceMapper;
 import com.aliyektan.bulut.repository.InvoiceRepository;
 import com.aliyektan.bulut.service.base.InvoiceService;
+import com.aliyektan.bulut.service.base.ParkingEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,9 @@ public class InvoiceServiceImpl implements InvoiceService<InvoiceDTO, Integer> {
 
     @Autowired
     private InvoiceMapper invoiceMapper;
+
+    @Autowired
+    private ParkingEventService parkingEventService;
 
     @Override
     public InvoiceDTO save(InvoiceDTO dto) {
@@ -43,4 +49,12 @@ public class InvoiceServiceImpl implements InvoiceService<InvoiceDTO, Integer> {
         return invoiceMapper.toDTOList(invoiceRepository.findAll(Sort.by(Sort.Direction.DESC, "updatedAt")));
     }
 
+    @Override
+    public InvoiceDTO bill(LicenseNumberDTO licenseNumberDTO) {
+
+        ParkingEvent endedParkingEvent = parkingEventService.stopParking(licenseNumberDTO);
+
+
+        return null;
+    }
 }
