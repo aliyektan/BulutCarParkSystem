@@ -50,11 +50,17 @@ public class ParkingEventServiceImpl implements ParkingEventService<ParkingEvent
         return parkingEventMapper.toDTOList(parkingEventRepository.findAll(Sort.by(Sort.Direction.DESC, "updatedAt")));
     }
 
+    // TODO: 4.12.2019 implement the available park point count calculator method
     @Override
     public boolean startParking(LicenseNumberDTO licenseNumberDTO) {
 
         try {
             User creator = userUtil.getAuthenticatedUser();
+
+            if (creator.getRelatedBranch().getPricingList() == null ||
+                    creator.getRelatedBranch().getParkPointCount() == null ||
+                    creator.getRelatedBranch().getParkPointCount() == 0)
+                return false;
 
             ParkingEvent parkingEvent = new ParkingEvent();
             parkingEvent.setLicenseNumber(licenseNumberDTO.getLicenseNumber());
