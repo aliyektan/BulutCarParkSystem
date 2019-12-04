@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <oauth.version>2.3.5.RELEASE</oauth.version>
+        <oauth.version>2.3.6.RELEASE</oauth.version>
         <jwt.version>1.0.9.RELEASE</jwt.version>
     </properties>
 
