@@ -2,14 +2,20 @@ package com.aliyektan.bulut.service;
 
 import com.aliyektan.bulut.dto.BranchDTO;
 import com.aliyektan.bulut.entity.Branch;
+import com.aliyektan.bulut.entity.Pricing;
+import com.aliyektan.bulut.entity.PricingPeriod;
 import com.aliyektan.bulut.mapper.BranchMapper;
 import com.aliyektan.bulut.repository.BranchRepository;
 import com.aliyektan.bulut.service.base.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -42,5 +48,75 @@ public class BranchServiceImpl implements BranchService<BranchDTO, Integer> {
     public List<BranchDTO> findAll() {
         return branchMapper.toDTOList(branchRepository.findAll(Sort.by(Sort.Direction.DESC, "updatedAt")));
     }
+
+    // Example Request
+//    {
+//        "name": "1234",
+//            "address": "dsdsd",
+//            "pricingList": [
+//        {
+//            "price": 5.0,
+//                "pricingPeriod": {
+//            "start": 0.0,
+//                    "end": 3.0
+//        }
+//        },
+//        {
+//            "price": 10.0,
+//                "pricingPeriod": {
+//            "start": 3.0,
+//                    "end": 8.0
+//        }
+//        },
+//        {
+//            "price": 15.0,
+//                "pricingPeriod": {
+//            "start": 8.0,
+//                    "end": 24.0
+//        }
+//        }
+//    ]
+//    }
+
+    // Added create because throw Exception
+    @Override
+    public BranchDTO create(BranchDTO dto) throws Exception {
+        Branch branch = branchMapper.toEntity(dto);
+        pricingPeriodValidation(branch.getPricingList());
+        branch = branchRepository.save(branch);
+        return branchMapper.toDTO(branch);
+    }
+
+    private void pricingPeriodValidation(List<Pricing> pricing) throws Exception {
+
+        boolean isValid = true;
+        double totalHour = 0.0;
+
+        // Rule 1
+        isValid = pricing.stream().anyMatch(pricing1 -> pricing1.getPricingPeriod().getStart() == 0);
+
+        // Sorting
+        Comparator<Pricing> compareById = Comparator.comparing((Pricing o) -> o.getPricingPeriod().getStart());
+        pricing.sort(compareById);
+
+        for (int i = 0; i < pricing.size();i++) {
+            // Rule 2
+            if(pricing.get(i).getPricingPeriod().getStart() > pricing.get(i).getPricingPeriod().getEnd()
+                    || pricing.get(i).getPricingPeriod().getStart().equals(pricing.get(i).getPricingPeriod().getEnd())){
+                isValid = false;
+            }else if((i+1) < pricing.size()){
+                // Rule 3
+                if(pricing.get(i).getPricingPeriod().getEnd()>pricing.get(i+1).getPricingPeriod().getStart()){
+                    isValid = false;
+                }
+            }
+            // Rule 4
+            totalHour += pricing.get(i).getPricingPeriod().getEnd()-pricing.get(i).getPricingPeriod().getStart();
+        }
+        if(totalHour != 24 && !isValid){
+            throw new Exception("Fiyat listesi uygun formatta değil!");
+        }
+    }
+
 
 }

@@ -9,10 +9,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-@MappedSuperclass
 @Data
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntity implements Serializable {
+@MappedSuperclass
+public abstract class BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

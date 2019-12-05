@@ -40,10 +40,10 @@ public class BranchController {
 
     @ResponseBody
     @PostMapping
-    public Response save(@RequestBody BranchDTO dto) {
+    public Response save(@RequestBody BranchDTO dto) throws Exception {
         return Response
                 .builder()
-                .data(branchService.save(dto))
+                .data(branchService.create(dto))
                 .httpStatus(HttpStatus.OK.value())
                 .build();
     }
