@@ -23,7 +23,6 @@ public class ParkingEvent extends BaseEntity {
     private String licenseNumber;
 
     @NotNull
-    @NotBlank
     private Timestamp startDate;
 
     private Timestamp endDate;

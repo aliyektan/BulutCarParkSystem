@@ -18,6 +18,8 @@ public class Invoice extends BaseEntity {
 
     private boolean paid;
 
+    private double price;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ParkingEvent parkingEvent;
 

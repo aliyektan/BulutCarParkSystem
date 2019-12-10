@@ -26,7 +26,7 @@ public class Branch extends BaseEntity {
 
     private Integer parkPointCount;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Pricing> pricingList;
 
 }

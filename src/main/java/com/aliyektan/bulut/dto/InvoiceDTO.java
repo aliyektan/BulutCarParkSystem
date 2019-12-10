@@ -10,6 +10,8 @@ public class InvoiceDTO extends BaseDTO {
 
     private boolean paid;
 
+    private double price;
+
     private ParkingEventDTO parkingEvent;
 
 }

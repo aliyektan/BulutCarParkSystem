@@ -16,11 +16,10 @@ import javax.validation.constraints.NotNull;
 })
 public class Pricing extends BaseEntity {
 
-    @NotNull
-    @NotBlank
+
     private Double price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private PricingPeriod pricingPeriod;
 
 }
