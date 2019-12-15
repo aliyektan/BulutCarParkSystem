@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/pricing-types")
+@RequestMapping(path = "/pricing-periods")
 public class PricingPeriodController {
 
     @Autowired
