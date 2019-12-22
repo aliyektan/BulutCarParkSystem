@@ -7,4 +7,8 @@ public interface InvoiceService<T extends BaseDTO, ID> extends BaseService<T,ID>
 
     T bill(LicenseNumberDTO licenseNumberDTO);
 
+    T confirm(Integer id);
+
+//    T confirm(Integer id);
+
 }

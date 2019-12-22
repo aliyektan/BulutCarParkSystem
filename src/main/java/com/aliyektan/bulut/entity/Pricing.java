@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -19,7 +17,7 @@ public class Pricing extends BaseEntity {
 
     private Double price;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private PricingPeriod pricingPeriod;
 
 }

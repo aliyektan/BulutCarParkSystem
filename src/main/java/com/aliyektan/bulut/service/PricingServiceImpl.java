@@ -30,7 +30,14 @@ public class PricingServiceImpl implements PricingService<PricingDTO, Integer> {
 
     @Override
     public PricingDTO findById(Integer id) {
-        return pricingMapper.toDTO(pricingRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id + " numaralı ücretlendirme bulunamadı !")));
+        return pricingMapper
+                .toDTO(
+                        pricingRepository
+                                .findById(id)
+                                .orElseThrow(
+                                        () -> new EntityNotFoundException(id + " numaralı ücretlendirme bulunamadı !")
+                                )
+                );
     }
 
     @Override
@@ -40,7 +47,15 @@ public class PricingServiceImpl implements PricingService<PricingDTO, Integer> {
 
     @Override
     public List<PricingDTO> findAll() {
-        return pricingMapper.toDTOList(pricingRepository.findAll(Sort.by(Sort.Direction.DESC, "updatedAt")));
+        return pricingMapper
+                .toDTOList(pricingRepository
+                        .findAll(
+                                Sort.by(
+                                        Sort.Order.asc("pricingPeriod.start"),
+                                        Sort.Order.asc("pricingPeriod.end")
+                                )
+                        )
+                );
     }
 
 }

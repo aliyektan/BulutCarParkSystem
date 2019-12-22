@@ -5,9 +5,9 @@ import com.aliyektan.bulut.dto.ParkingEventDTO;
 import com.aliyektan.bulut.dto.base.BaseDTO;
 import com.aliyektan.bulut.entity.ParkingEvent;
 
-public interface ParkingEventService<T extends BaseDTO, ID> extends BaseService<T,ID> {
+public interface ParkingEventService<T extends BaseDTO, ID> extends BaseService<T, ID> {
 
-    boolean startParking(LicenseNumberDTO licenseNumberDTO);
+    boolean startParking(LicenseNumberDTO licenseNumberDTO) throws Exception;
 
     ParkingEvent stopParking(LicenseNumberDTO licenseNumberDTO);
 

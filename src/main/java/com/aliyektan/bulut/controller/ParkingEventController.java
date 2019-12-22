@@ -40,7 +40,7 @@ public class ParkingEventController {
 
     @ResponseBody
     @PostMapping(path = "/start")
-    public Response start(@RequestBody LicenseNumberDTO dto) {
+    public Response start(@RequestBody LicenseNumberDTO dto) throws Exception {
         return Response
                 .builder()
                 .data(parkingEventService.startParking(dto))

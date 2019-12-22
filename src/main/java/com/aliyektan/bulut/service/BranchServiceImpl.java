@@ -3,18 +3,16 @@ package com.aliyektan.bulut.service;
 import com.aliyektan.bulut.dto.BranchDTO;
 import com.aliyektan.bulut.entity.Branch;
 import com.aliyektan.bulut.entity.Pricing;
-import com.aliyektan.bulut.entity.PricingPeriod;
+import com.aliyektan.bulut.entity.User;
 import com.aliyektan.bulut.mapper.BranchMapper;
 import com.aliyektan.bulut.repository.BranchRepository;
 import com.aliyektan.bulut.service.base.BranchService;
+import com.aliyektan.bulut.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -26,6 +24,9 @@ public class BranchServiceImpl implements BranchService<BranchDTO, Integer> {
 
     @Autowired
     private BranchMapper branchMapper;
+
+    @Autowired
+    private UserUtil userUtil;
 
     @Override
     public BranchDTO save(BranchDTO dto) {
@@ -87,6 +88,17 @@ public class BranchServiceImpl implements BranchService<BranchDTO, Integer> {
         return branchMapper.toDTO(branch);
     }
 
+    @Override
+    public Integer getAvailableParkPointCount() {
+        User user = userUtil.getAuthenticatedUser();
+        return branchRepository.getAvailableParkPointCount(user.getRelatedBranch().getId());
+    }
+
+    @Override
+    public Integer getAvailableParkPointCountByBranchId(Integer id) {
+        return branchRepository.getAvailableParkPointCount(id);
+    }
+
     private void pricingPeriodValidation(List<Pricing> pricing) throws Exception {
 
         boolean isValid = true;
@@ -99,22 +111,22 @@ public class BranchServiceImpl implements BranchService<BranchDTO, Integer> {
         Comparator<Pricing> compareById = Comparator.comparing((Pricing o) -> o.getPricingPeriod().getStart());
         pricing.sort(compareById);
 
-        for (int i = 0; i < pricing.size();i++) {
+        for (int i = 0; i < pricing.size(); i++) {
             // Rule 2
-            if(pricing.get(i).getPricingPeriod().getStart() > pricing.get(i).getPricingPeriod().getEnd()
-                    || pricing.get(i).getPricingPeriod().getStart().equals(pricing.get(i).getPricingPeriod().getEnd())){
+            if (pricing.get(i).getPricingPeriod().getStart() > pricing.get(i).getPricingPeriod().getEnd()
+                    || pricing.get(i).getPricingPeriod().getStart().equals(pricing.get(i).getPricingPeriod().getEnd())) {
                 isValid = false;
-            }else if((i+1) < pricing.size()){
+            } else if ((i + 1) < pricing.size()) {
                 // Rule 3
-                if(pricing.get(i).getPricingPeriod().getEnd()>pricing.get(i+1).getPricingPeriod().getStart()){
+                if (pricing.get(i).getPricingPeriod().getEnd() > pricing.get(i + 1).getPricingPeriod().getStart()) {
                     isValid = false;
                 }
             }
             // Rule 4
-            totalHour += pricing.get(i).getPricingPeriod().getEnd()-pricing.get(i).getPricingPeriod().getStart();
+            totalHour += pricing.get(i).getPricingPeriod().getEnd() - pricing.get(i).getPricingPeriod().getStart();
         }
-        if(totalHour != 24 && !isValid){
-            throw new Exception("Fiyat listesi uygun formatta değil!");
+        if (totalHour != 24 || !isValid) {
+            throw new Exception("Fiyat listesi uygun formatta değil. Lütfen kontrol edip tekrar deneyiniz.");
         }
     }
 

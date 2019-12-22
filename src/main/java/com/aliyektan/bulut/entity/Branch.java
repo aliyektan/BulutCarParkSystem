@@ -26,7 +26,14 @@ public class Branch extends BaseEntity {
 
     private Integer parkPointCount;
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Pricing> pricingList;
+
+    @OneToMany(mappedBy = "relatedBranch", cascade = {CascadeType.REMOVE})
+    private List<User> relatedStaff;
+
+    @OneToMany(mappedBy = "currentBranch", cascade = {CascadeType.REMOVE})
+    private List<ParkingEvent> relatedParkingEvents;
+
 
 }

@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 @Data
 public class ParkingEventDTO extends BaseDTO {
 
+    private String licenseNumber;
+
     private Timestamp startDate;
 
     private Timestamp endDate;

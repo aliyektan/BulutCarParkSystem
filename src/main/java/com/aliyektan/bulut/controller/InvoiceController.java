@@ -40,10 +40,20 @@ public class InvoiceController {
 
     @ResponseBody
     @PostMapping(path = "/bill")
-    public Response start(@RequestBody LicenseNumberDTO dto) {
+    public Response bill(@RequestBody LicenseNumberDTO dto) {
         return Response
                 .builder()
                 .data(invoiceService.bill(dto))
+                .httpStatus(HttpStatus.OK.value())
+                .build();
+    }
+
+    @ResponseBody
+    @PostMapping(path = "/confirm/{id}")
+    public Response confirm(@PathVariable("id") Integer id) {
+        return Response
+                .builder()
+                .data(invoiceService.confirm(id))
                 .httpStatus(HttpStatus.OK.value())
                 .build();
     }

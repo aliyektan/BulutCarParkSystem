@@ -26,6 +26,32 @@ public class BranchController {
 
     }
 
+    // user
+    @ResponseBody
+    @GetMapping(path = "/available")
+    public Response getAvailableParkPointCount() {
+
+        return Response
+                .builder()
+                .data(branchService.getAvailableParkPointCount())
+                .httpStatus(HttpStatus.OK.value())
+                .build();
+
+    }
+
+    // admin
+    @ResponseBody
+    @GetMapping(path = "/available/{id}")
+    public Response getAvailableParkPointCountByBranchId(@PathVariable("id") Integer id) {
+
+        return Response
+                .builder()
+                .data(branchService.getAvailableParkPointCountByBranchId(id))
+                .httpStatus(HttpStatus.OK.value())
+                .build();
+
+    }
+
     @ResponseBody
     @GetMapping(path = "/{id}")
     public Response getOne(@PathVariable("id") Integer id) {

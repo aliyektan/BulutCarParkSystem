@@ -14,6 +14,10 @@ public class BranchDTO extends BaseDTO {
 
     private String address;
 
+    private Integer parkPointCount;
+
+    private Integer availableParkPointCount;
+
     private List<PricingDTO> pricingList;
 
 }
