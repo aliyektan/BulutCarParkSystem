@@ -6,9 +6,12 @@ spring:
     name: bulut-carpark
   datasource:
     platform: mysql
-    url: jdbc:mysql://localhost:3306/bulut_carpark?useSSL=false&storage_engine=InnoDB&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: root
+    #    url: jdbc:mysql://localhost:3306/bulut_carpark?useSSL=false&storage_engine=InnoDB&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://bulutcarparkdb.cw2jrtacx03h.us-east-1.rds.amazonaws.com:3306/bulut_carpark?useSSL=false&storage_engine=InnoDB&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC
+    #    username: root
+    username: admin
+    #    password: root
+    password: yektan2019!
     driverClassName: com.mysql.jdbc.Driver
     hikari:
       connection-timeout: 3000
