@@ -30,7 +30,19 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .requestMatchers()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll();
+                .antMatchers("/account/**").authenticated()
+                .antMatchers("/branches/available").hasAuthority("USER")
+                .antMatchers("/branches/**").hasAnyAuthority("ADMIN", "SUPERADMIN")
+                .antMatchers("/invoices").hasAnyAuthority("ADMIN", "USER", "SUPERADMIN")
+                .antMatchers("/invoices/bill").hasAuthority("USER")
+                .antMatchers("/invoices/confirm/*").hasAuthority("USER")
+                .antMatchers("/parking-events").hasAnyAuthority("USER", "ADMIN", "SUPERADMIN")
+                .antMatchers("/parking-events/start").hasAuthority("USER")
+                .antMatchers("/pricing").hasAnyAuthority("ADMIN", "SUPERADMIN")
+                .antMatchers("/pricing-periods").hasAnyAuthority("ADMIN", "SUPERADMIN")
+                .antMatchers("/roles").hasAnyAuthority("ADMIN", "SUPERADMIN")
+                .antMatchers("/users").hasAnyAuthority("ADMIN", "SUPERADMIN")
+                .antMatchers("/oauth/token").anonymous();
 
     }
 
